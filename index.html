@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simon | Portfolio & ATS Builder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="glass-nav">
+    <div class="nav-brand">Simon<span class="dot">.</span></div>
+    <ul class="nav-links">
+      <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+      <li><a href="#" class="nav-link" data-page="about">About</a></li>
+      <li><a href="#" class="nav-link" data-page="resume">Resume</a></li>
+      <li><a href="#" class="nav-link" data-page="cv">CV</a></li>
+      <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+    </ul>
+    <button class="mobile-toggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="pages-container">
+    
+    <!-- HOME -->
+    <section id="home" class="page active-page">
+      <div class="hero-wrapper">
+        <div class="hero-glass">
+          <div class="hero-content">
+            <span class="hero-badge"><i class="fas fa-circle-notch fa-spin"></i> Available for Opportunities</span>
+            <h1 class="hero-title">Hi, I'm <span class="gradient-text">Simon</span></h1>
+            <p class="hero-subtitle">Creative Strategist & ATS Resume Architect</p>
+            <p class="hero-desc">I blend analytical precision with creative storytelling to craft compelling professional narratives and optimize career documents for maximum impact.</p>
+            
+            <div class="hero-ctas">
+              <button class="btn btn-primary" onclick="navigateTo('resume')">
+                <i class="fas fa-file-alt"></i> Build ATS Resume
+              </button>
+              <button class="btn btn-outline" onclick="navigateTo('contact')">
+                <i class="fas fa-envelope"></i> Get In Touch
+              </button>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-card">
+                <span class="stat-number">5+</span>
+                <span class="stat-label">Years Experience</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">ATS Optimized</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Portfolio Access</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="profile-ring">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Simon">
+            </div>
+            <div class="floating-badge badge1"><i class="fas fa-check-circle"></i> Verified</div>
+            <div class="floating-badge badge2"><i class="fas fa-star"></i> Top Rated</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="page">
+      <div class="content-card">
+        <h2><i class="fas fa-user"></i> About Me</h2>
+        <p class="lead">Passionate professional dedicated to excellence, innovation, and continuous growth.</p>
+        <p>With a strong foundation in strategic planning and technical execution, I specialize in transforming complex challenges into streamlined solutions. My approach combines analytical rigor with creative problem-solving, enabling me to deliver results that consistently exceed expectations.</p>
+        
+        <div class="about-grid">
+          <div class="about-item">
+            <i class="fas fa-lightbulb"></i>
+            <h3>Innovation</h3>
+            <p>Constantly exploring new methods and technologies to improve outcomes.</p>
+          </div>
+          <div class="about-item">
+            <i class="fas fa-chart-line"></i>
+            <h3>Results-Driven</h3>
+            <p>Focused on measurable impact and sustainable success.</p>
+          </div>
+          <div class="about-item">
+            <i class="fas fa-handshake"></i>
+            <h3>Collaboration</h3>
+            <p>Building strong partnerships to achieve shared goals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume" class="page">
+      <div class="content-card">
+        <h2><i class="fas fa-file-alt"></i> ATS Resume Builder</h2>
+        <div class="upload-section">
+          <h3><i class="fas fa-cloud-upload-alt"></i> Upload Your Resume</h3>
+          <p>Upload PDF or DOCX to auto-generate an ATS-optimized version</p>
+          <input type="file" id="resumeUpload" accept=".pdf,.docx,.doc" class="file-input">
+          <label for="resumeUpload" class="file-input-label"><i class="fas fa-file-import"></i> Choose File</label>
+          <div id="resumeUploadStatus" class="upload-status"></div>
+        </div>
+        <div class="toggle-section">
+          <button class="toggle-btn" onclick="toggleResumeEditor()"><i class="fas fa-edit"></i> <span id="resumeToggleText">Edit Manually</span></button>
+        </div>
+        <div class="resume-builder" id="resumeEditor" style="display:none;">
+          <h3><i class="fas fa-user-edit"></i> Resume Information</h3>
+          <div class="form-row">
+            <div class="form-group"><label>Full Name *</label><input type="text" id="resName" placeholder="John Doe"></div>
+            <div class="form-group"><label>Professional Title</label><input type="text" id="resTitle" placeholder="Web Designer"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Email *</label><input type="email" id="resEmail" placeholder="john@email.com"></div>
+            <div class="form-group"><label>Phone</label><input type="tel" id="resPhone" placeholder="+1 234 567 8900"></div>
+          </div>
+          <div class="form-group"><label>Location</label><input type="text" id="resLocation" placeholder="New York, NY"></div>
+          <div class="form-group"><label>Professional Summary</label><textarea id="resSummary" rows="3" placeholder="Results-driven professional with..."></textarea></div>
+          <div class="form-section">
+            <h4><i class="fas fa-briefcase"></i> Work Experience</h4>
+            <div id="workExperienceContainer"></div>
+            <button type="button" class="btn-secondary" onclick="addWorkExperience()"><i class="fas fa-plus"></i> Add Position</button>
+          </div>
+          <div class="form-section">
+            <h4><i class="fas fa-graduation-cap"></i> Education</h4>
+            <div id="educationContainer"></div>
+            <button type="button" class="btn-secondary" onclick="addEducation()"><i class="fas fa-plus"></i> Add Education</button>
+          </div>
+          <div class="form-section">
+            <h4><i class="fas fa-tools"></i> Skills</h4>
+            <textarea id="resSkills" rows="2" placeholder="JavaScript, HTML, CSS, React, Node.js"></textarea>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="saveAndGenerateResume()"><i class="fas fa-save"></i> Save & Generate ATS Resume</button>
+          </div>
+        </div>
+        <div class="history-section" id="resumeHistory">
+          <h3><i class="fas fa-history"></i> Resume History</h3>
+          <div class="history-grid" id="resumeHistoryList"></div>
+        </div>
+        <div class="preview-section" id="resumePreviewSection" style="display:none;">
+          <div class="preview-header">
+            <h3><i class="fas fa-eye"></i> ATS Resume Preview</h3>
+            <div class="preview-actions">
+              <button class="btn btn-success" onclick="downloadCurrentResume()"><i class="fas fa-download"></i> Download PDF</button>
+              <button class="btn btn-outline-dark" onclick="closeResumePreview()"><i class="fas fa-times"></i> Close</button>
+            </div>
+          </div>
+          <div id="resumePreviewContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CV -->
+    <section id="cv" class="page">
+      <div class="content-card">
+        <h2><i class="fas fa-id-card"></i> ATS CV Builder</h2>
+        <div class="upload-section">
+          <h3><i class="fas fa-cloud-upload-alt"></i> Upload Your CV</h3>
+          <p>Upload PDF or DOCX to auto-generate an ATS-optimized version</p>
+          <input type="file" id="cvUpload" accept=".pdf,.docx,.doc" class="file-input">
+          <label for="cvUpload" class="file-input-label"><i class="fas fa-file-import"></i> Choose File</label>
+          <div id="cvUploadStatus" class="upload-status"></div>
+        </div>
+        <div class="toggle-section">
+          <button class="toggle-btn" onclick="toggleCVEditor()"><i class="fas fa-edit"></i> <span id="cvToggleText">Edit Manually</span></button>
+        </div>
+        <div class="resume-builder" id="cvEditor" style="display:none;">
+          <h3><i class="fas fa-user-edit"></i> CV Information</h3>
+          <div class="form-row">
+            <div class="form-group"><label>Full Name *</label><input type="text" id="cvName" placeholder="John Doe"></div>
+            <div class="form-group"><label>Professional Title</label><input type="text" id="cvTitle" placeholder="Senior Designer"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Email *</label><input type="email" id="cvEmail" placeholder="john@email.com"></div>
+            <div class="form-group"><label>Phone</label><input type="tel" id="cvPhone" placeholder="+1 234 567 8900"></div>
+          </div>
+          <div class="form-group"><label>Location</label><input type="text" id="cvLocation" placeholder="New York, NY"></div>
+          <div class="form-group"><label>Professional Summary</label><textarea id="cvSummary" rows="3" placeholder="Accomplished professional with..."></textarea></div>
+          <div class="form-section">
+            <h4><i class="fas fa-briefcase"></i> Professional Experience</h4>
+            <div id="cvExperienceContainer"></div>
+            <button type="button" class="btn-secondary" onclick="addCVExperience()"><i class="fas fa-plus"></i> Add Position</button>
+          </div>
+          <div class="form-section">
+            <h4><i class="fas fa-graduation-cap"></i> Education</h4>
+            <div id="cvEducationContainer"></div>
+            <button type="button" class="btn-secondary" onclick="addCVEducation()"><i class="fas fa-plus"></i> Add Education</button>
+          </div>
+          <div class="form-section">
+            <h4><i class="fas fa-book"></i> Publications</h4>
+            <textarea id="cvPublications" rows="2" placeholder="List your publications..."></textarea>
+          </div>
+          <div class="form-section">
+            <h4><i class="fas fa-tools"></i> Skills & Competencies</h4>
+            <textarea id="cvSkills" rows="2" placeholder="Technical and soft skills..."></textarea>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="saveAndGenerateCV()"><i class="fas fa-save"></i> Save & Generate ATS CV</button>
+          </div>
+        </div>
+        <div class="history-section" id="cvHistory">
+          <h3><i class="fas fa-history"></i> CV History</h3>
+          <div class="history-grid" id="cvHistoryList"></div>
+        </div>
+        <div class="preview-section" id="cvPreviewSection" style="display:none;">
+          <div class="preview-header">
+            <h3><i class="fas fa-eye"></i> ATS CV Preview</h3>
+            <div class="preview-actions">
+              <button class="btn btn-success" onclick="downloadCurrentCV()"><i class="fas fa-download"></i> Download PDF</button>
+              <button class="btn btn-outline-dark" onclick="closeCVPreview()"><i class="fas fa-times"></i> Close</button>
+            </div>
+          </div>
+          <div id="cvPreviewContainer"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="page">
+      <div class="content-card">
+        <h2><i class="fas fa-address-card"></i> Get In Touch</h2>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>Let's Connect</h3>
+            <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div><strong>Email</strong><p>simon@example.com</p></div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <div><strong>Phone</strong><p>+1 (555) 123-4567</p></div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div><strong>Location</strong><p>New York, NY</p></div>
+            </div>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-dribbble"></i></a>
+            </div>
+          </div>
+          <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent! (Demo)');">
+            <div class="form-group"><label>Name</label><input type="text" required placeholder="Your Name"></div>
+            <div class="form-group"><label>Email</label><input type="email" required placeholder="your@email.com"></div>
+            <div class="form-group"><label>Subject</label><input type="text" placeholder="Project Inquiry"></div>
+            <div class="form-group"><label>Message</label><textarea rows="5" required placeholder="Tell me about your project..."></textarea></div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
